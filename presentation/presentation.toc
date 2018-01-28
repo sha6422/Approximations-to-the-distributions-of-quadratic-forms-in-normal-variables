@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{Five approximation approaches}{7}{0}{1}
+\beamer@sectionintoc {3}{numerical examples simulation}{15}{0}{2}
+\beamer@sectionintoc {4}{Comparisons and discussion}{19}{0}{3}
+\beamer@sectionintoc {5}{Conclusion}{24}{0}{4}

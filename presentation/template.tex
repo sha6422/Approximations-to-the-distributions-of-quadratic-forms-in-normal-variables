@@ -1,0 +1,283 @@
+\documentclass[12pt]{beamer}
+\usetheme{CambridgeUS}%{Berkeley}%
+\mode<presentation>
+%\usepackage{beamerthemesplit}
+\usepackage{amsmath,amssymb,latexsym,epsfig,graphics}
+\linespread{2}
+\title{Generalized Linear, Non-linear and Mixed Models}
+\subtitle{Theory, Methods and Practice}
+%\author{}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section*{Outline}
+\frame{\tableofcontents }
+
+
+
+\section{Introduction and Motivation}
+
+\begin{frame}
+\begin{itemize}
+  \item<1-> What is regression? What does regression do?
+  \item<2-> Regression ingredient:
+    \begin{enumerate}
+    \item<1-> Response or dependent variable, usually denoted by
+    $Y$; $y$
+    \item<2-> Auxiliary or independent variable, usually denoted by
+    $X$; $x$
+    \end{enumerate}
+  \item<3-> Both $Y$ and $X$ may be univariable or multivariable.
+  \item<4-> Dual Purpose:
+    \begin{enumerate}
+    \item<1-> Develop relationship between $Y$ and $X$;
+    \item<2-> Predict future or unobserved $Y$ using known or
+    observed $X$.
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item<1-> Deterministic world: $Y=f(x)$, $f$ is completely known
+  function.\\
+   e.g. $A=\pi r^2$, $Y=A$, $x=r$, $f=\pi r^2$.
+   \item<2-> Indeterministic world or uncertain events\\
+   $Y\approx (x)$\\
+   or, $Y=f(x)+\varepsilon$.
+  \item<3-> Two components:\\
+  $f$: Mathematical world;\\
+  $\varepsilon$: Statistical world.
+  \end{itemize}
+  \end{frame}
+
+
+\begin{frame}
+  \begin{itemize}
+ \item<1-> However, $f$ and $\varepsilon$ could be related (\alert{
+ How?}).
+
+ \item<2->Not necessarily statistically rather in terms of
+ mathematical measurements
+
+ \item<3-> Linear Regression:
+    $Y=\beta_{0}+\beta_{1}x+\varepsilon$.
+    \item<4-> What are the basic assumptions made?
+
+    \begin{enumerate}
+      \item<1-> For every given $x$, $Y$ is a random variable.
+      \item<2-> The mean of $Y$ is linearly related to $x$ and in
+      particular it is a straight line equation.
+  \end{enumerate}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+      Other usual assumptions:
+      \begin{enumerate}
+      \item<1-> $\varepsilon$'s are independent and identically
+      distributed (iid).
+      \item<2-> $\varepsilon$'s are normally distributed: why this
+      is required? In an indeterministic world measurement
+      of uncertainty is the main thing and the uncertainty
+      is measured by probability. The normality assumptions
+      provide accurate calculation of uncertainty associated
+      the $Y$ and $x$ relationship.
+    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+  \begin{itemize}
+    \item<1-> Interpretation of $\beta$'s: Important for many
+    practical applications.
+
+    \item<2-> How do you determine $\beta$? Why do they need to be
+    fixed?
+
+    \item <3-> For a given data set many straight lines seem
+    plausible but we want one that uniquely determine the
+    relationship. The uniqueness is defined by minimum squared
+    error loss, in mathematical sense.
+    \end{itemize}
+  \end{frame}
+\begin{frame}
+  \begin{itemize}
+    \item<1->However, they are uniquely determined by maximum
+    likelihood estimation or some other methods (will be learned
+    in this course) in statistical sense. Although they could be
+    identical in many special cases.
+    \item<2-> Minimum Distance method
+     \begin{equation}
+     min_{\beta} \sum_{i=1}^{n}(y_{i}-\beta_{0}-\beta_{x}x_{i}^2)
+     \end{equation}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+     \item<1-> ML method
+     \begin{equation}
+     max_{\beta}logL(\beta)= -\frac{n}{2}log(2\pi)-\frac{n}{2}log\sigma^{2}-\frac{1}{2\sigma^2} \sum_{i=1}^{n}(y_{i}-\beta_{0}-\beta_{2}x_{i})^2
+     \end{equation}
+     \item<2-> You are required to know the statistical properties of
+  the estimators of $\beta$
+  \end{itemize}
+\end{frame}
+
+
+%\begin{frame}
+%  \begin{itemize}
+%    \item<1->
+%    \item<2->
+%  \end{itemize}
+%\end{frame}
+
+\section{Introduction to Logistic Regression and GLM}
+
+\begin{frame}
+
+  \begin{itemize}
+    \item<1-> Consider the data set extracted from a national study
+    of $15$ and $16$ year old adolescents. The event of interest
+    is ever having sexual intercourse.
+  \end{itemize}
+
+\begin{center}
+  \fontsize{10}{11}\selectfont{\begin{tabular}{cccc}\hline
+    Race&Gender& \multicolumn{2}{c}{Intercourse}\\
+    &&Yes&No\\
+    \hline
+    White & Male & 43 & 134\\
+    & Female & 26 & 149\\
+    \hline
+    Black & Male & 29 & 23\\
+    & Female & 22 & 36\\
+    \hline
+    \end{tabular}}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+  \begin{itemize}
+    \item<1->
+    \begin{equation}
+    \begin{split}
+    \pi&=Pr(intercourse)\\
+    &=\frac{43+26+29+22}{(43+26+29+22)+(134+149+23+36)}=0.260
+    \end{split}
+    \end{equation}
+    \item<2->
+    \begin{equation}
+    Pr(intercourse|white)=\frac{43+26}{43+26+134+149}=0.196
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item<1->
+    \begin{equation}
+    Pr(intercourse|Black)=\frac{29+22}{29+22+23+36}=0.463
+    \end{equation}
+    \item<2->
+    \begin{equation}
+    Pr(intercourse|Male)=\frac{43+29}{43+29+134+23}=0.314
+    \end{equation}
+    \item<3->
+    \begin{equation}
+    Pr(intercourse|Female)=\frac{26+22}{26+22+149+36}=0.206
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item<1->
+    \begin{equation}
+    Pr(intercourse|White \& Male)=\frac{43}{43+134}=0.243
+    \end{equation}
+    \item<2->
+    \begin{equation}
+    Pr(intercourse|White \& Female)=\frac{26}{26+149}=0.148
+    \end{equation}
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \begin{itemize}
+    \item<1->
+    \begin{equation}
+    Pr(intercourse|Black \& Male)=\frac{29}{29+23}=0.558
+    \end{equation}
+    \item<2->
+    \begin{equation}
+    Pr(intercourse|Black \& Female)=\frac{22}{22+36}=0.379
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \begin{itemize}
+    \item<1-> How about having a formula: $\pi (x)=f(x)$?
+
+    what $x$?
+    \item<2-> Define conveniently
+    \begin{equation*}
+     x_{2}=\left\{
+      \begin{array}{rl}
+      1  &  \text{if Male}\\
+      0  &  \text{if Female}
+      \end{array} \right.
+    \end{equation*}
+
+  \begin{equation*}
+     x_{1}=\left\{
+      \begin{array}{rl}
+      1  &  \text{if White}\\
+      0  &  \text{if Black}
+      \end{array} \right.
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \begin{itemize}
+    \item<1-> Let
+    $f(x)=\beta_{0}+\beta_{1}x_{1}+\beta_{2}x_{2}=-0.455-0.1313x_{1}+0.648x_{2}$.
+
+    \begin{center}
+      \begin{tabular}{cccl} \hline
+      \multicolumn{2}{c}{X}& $\pi$(x)&\\
+      1&1&0.329&White Male\\
+      1&0&0.204&White Female\\
+      0&1&0.646&Black Male\\
+      0&0&0.488&Black Female\\
+      \hline
+      \end{tabular}
+    \end{center}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  Issues:
+  \begin{itemize}
+    \item<1-> Structural defect-Probabilities fall between $0$ and
+    $1$, where as linear functions take values over the entire
+    real line. The model can be valid for a specific range of
+    $x$, but not for all values of $x$.
+  \end{itemize}
+  Require a more general model formation.
+\end{frame}
+
+
+
+\end{document}
